@@ -17,18 +17,18 @@ tokens = tokenizer.tokenize(sequence)
 print(f"These are the tokens: {tokens}\n")
 token_ids = tokenizer.convert_tokens_to_ids(tokens)
 print(f"These are the token ids: {token_ids}\n")
+model_inputs = torch.tensor([token_ids])    # Model expects more than 1 setence, hence add another layer
+print(model_inputs.shape)
 
-# Decoded string
-decoded_string = tokenizer.decode(token_ids)
-print(f"The decoded string from the token ids: {decoded_string}\n")
-
-# Get the tokenized sequence
+# Get the tokenized sequence with built-in tokenizer
 encoded_sequence = tokenizer(sequence)      # tokenizer(sequence, return_tensors="pt") to be able to input to the model
 print(f"This is the encoded sequence: {encoded_sequence}\n")
 
-# Turn the encoded sequence into tensors to input to the model
-model_inputs = torch.tensor([token_ids])    # Model expects more than 1 setence, hence add another layer
-print(model_inputs.shape)
+# Decoded string
+decoded_string = tokenizer.decode(token_ids)
+print(f"The decoded string from the manual steps: {decoded_string}\n")
+decoded_string = tokenizer.decode(encoded_sequence["input_ids"])
+print(f"The decoded string from the tokenizer: {decoded_string}\n")
 
 # Get the output from the pretrained model
 outputs = bert_model(model_inputs)
