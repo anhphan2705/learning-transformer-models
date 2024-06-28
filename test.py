@@ -33,5 +33,3 @@ print(f"The decoded string from the tokenizer: {decoded_string}\n")
 # Get the output from the pretrained model
 outputs = bert_model(model_inputs)
 print(f"Pre-Softmax outputs {outputs}\n")
-# outputs = torch.nn.functional.softmax(outputs)
-# print(f"Post-Softmax outputs {outputs}\n")
